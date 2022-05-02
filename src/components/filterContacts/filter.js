@@ -1,4 +1,4 @@
-import s from "./filter.module.css";
+import s from './filter.module.css';
 
 export default function Filter({ onInputFilter }) {
   return (
@@ -9,9 +9,7 @@ export default function Filter({ onInputFilter }) {
           className={s.input}
           tyte="text"
           name="filter"
-          onChange={(e) => {
-            onInputFilter(e.target.value);
-          }}
+          onChange={e => onInputFilter(e.target.value)}
         ></input>
       </label>
     </div>

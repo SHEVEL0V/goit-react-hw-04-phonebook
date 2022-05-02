@@ -3,7 +3,6 @@ import Container from './container/container';
 import Form from './form/form';
 import ContactsList from './contactsList/contactsList';
 import Filter from './filterContacts/filter';
-// import fechAPI from "../fechAPI/fech";
 
 export default function App() {
   const [contacts, setContacts] = useState([]);
@@ -50,7 +49,7 @@ export default function App() {
   return (
     <Container>
       <div>
-        <Form onSubmit={addValidContacts} />
+        <Form addValidContacts={addValidContacts} />
         <Filter onInputFilter={onInputFilter} />
       </div>
       <ContactsList contacts={filterVisibleEl()} removeContacs={removeContacts} />

@@ -18,13 +18,7 @@ export default function ContactsList({ contacts, removeContacs }) {
                 <b className={s.text}>tel:</b>
                 {el.number}
               </span>
-              <button
-                className={s.button}
-                type="button"
-                onClick={() => {
-                  removeContacs(el.id);
-                }}
-              >
+              <button className={s.button} type="button" onClick={() => removeContacs(el.id)}>
                 <AiFillDelete />
               </button>
             </li>
