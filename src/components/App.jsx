@@ -6,27 +6,25 @@ import Filter from './filterContacts/filter';
 
 export default function App() {
   const [contacts, setContacts] = useState([]);
-  const [filterEl, setFilterEl] = useState('');
+  const [filter, setFilter] = useState('');
+  const localSt = JSON.parse(window.localStorage.getItem('contactsList'));
 
   useEffect(() => {
-    const localSt = JSON.parse(window.localStorage.getItem('contactsList'));
     if (localSt) {
       setContacts(localSt);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    if (contacts.length > 0) {
+    if (contacts !== localSt) {
       window.localStorage.setItem('contactsList', JSON.stringify(contacts));
     }
-  }, [contacts]);
+  }, [contacts, localSt]);
 
   const addValidContacts = value => {
     const arrey = [...contacts, value];
-    if (
-      contacts.every(e => e.name !== value.name) &&
-      contacts.every(e => e.number !== value.number)
-    ) {
+    if (contacts.every(e => e.name.toLowerCase() !== value.name.toLowerCase())) {
       setContacts(arrey);
     } else {
       alert(`"${value.name}" is already in contact!`);
@@ -34,11 +32,11 @@ export default function App() {
   };
 
   const onInputFilter = value => {
-    setFilterEl(value.trim());
+    setFilter(value.trim());
   };
 
   const filterVisibleEl = () => {
-    const filterLowCace = filterEl.toLowerCase();
+    const filterLowCace = filter.toLowerCase();
     return contacts.filter(el => el.name.toLowerCase().includes(filterLowCace));
   };
 

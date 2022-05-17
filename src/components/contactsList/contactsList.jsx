@@ -1,5 +1,6 @@
-import s from './contactsList.module.css';
+import PropTypes from 'prop-types';
 import { AiFillDelete } from 'react-icons/ai';
+import s from './contactsList.module.css';
 
 export default function ContactsList({ contacts, removeContacs }) {
   return (
@@ -28,3 +29,14 @@ export default function ContactsList({ contacts, removeContacs }) {
     </div>
   );
 }
+
+ContactsList.propTypes = {
+  removeContacs: PropTypes.func.isRequired,
+  contacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+    }),
+  ),
+};
