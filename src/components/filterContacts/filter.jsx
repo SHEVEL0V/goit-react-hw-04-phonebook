@@ -1,14 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import s from './filter.module.css';
 
-export default function Filter({ onInputFilter }) {
-  const [value, setValue] = useState('');
-
+export default function Filter({ onInputFilter, value }) {
   const onCange = e => {
-    const { value } = e.target;
-    setValue(value);
-    onInputFilter(value);
+    onInputFilter(e.target.value);
   };
   return (
     <div className={s.thamb}>
@@ -28,4 +24,5 @@ export default function Filter({ onInputFilter }) {
 
 Filter.propTypes = {
   onInputFilter: PropTypes.func.isRequired,
+  value: PropTypes.string.isRequired,
 };

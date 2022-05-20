@@ -4,23 +4,18 @@ import Form from './form/form';
 import ContactsList from './contactsList/contactsList';
 import Filter from './filterContacts/filter';
 
+const getContacts = () => {
+  const contacts = JSON.parse(window.localStorage.getItem('contactsList'));
+  return contacts ? contacts : [];
+};
+
 export default function App() {
-  const [contacts, setContacts] = useState([]);
+  const [contacts, setContacts] = useState(getContacts);
   const [filter, setFilter] = useState('');
-  const localSt = JSON.parse(window.localStorage.getItem('contactsList'));
 
   useEffect(() => {
-    if (localSt) {
-      setContacts(localSt);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    if (contacts !== localSt) {
-      window.localStorage.setItem('contactsList', JSON.stringify(contacts));
-    }
-  }, [contacts, localSt]);
+    window.localStorage.setItem('contactsList', JSON.stringify(contacts));
+  }, [contacts]);
 
   const addValidContacts = value => {
     const arrey = [...contacts, value];
@@ -48,7 +43,7 @@ export default function App() {
     <Container>
       <div>
         <Form addValidContacts={addValidContacts} />
-        <Filter onInputFilter={onInputFilter} />
+        <Filter onInputFilter={onInputFilter} value={filter} />
       </div>
       <ContactsList contacts={filterVisibleEl()} removeContacs={removeContacts} />
     </Container>
